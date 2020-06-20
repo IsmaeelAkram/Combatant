@@ -12,6 +12,7 @@ class CreateVerify(commands.Cog):
         self.icons = self.vars['icons']
 
     @commands.command(description="Create verification message")
+    @commands.has_permissions(manage_messages=True)
     async def createverify(self, ctx: commands.Context):
         await ctx.message.delete()
         GuildConfig = config.Config(ctx.guild.id)

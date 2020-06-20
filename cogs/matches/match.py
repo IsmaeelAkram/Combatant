@@ -14,6 +14,7 @@ class Match(commands.Cog):
         self.icons = self.vars['icons']
 
     @commands.command(description="Start any type of Valorant match.")
+    @commands.has_role("Host")
     async def startmatch(self, ctx: commands.Context, *, description: str):
         # if host Riot acount is not linked, stop
         match_id = int(datetime.datetime.now().strftime('%Y%m%d'))
