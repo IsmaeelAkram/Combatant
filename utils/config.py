@@ -86,7 +86,7 @@ class Config():
             self.cursor.execute(
                 f"DELETE from verified_users WHERE user_id={user.id}")
         self.cursor.execute(
-            f"INSERT INTO verified_users VALUES ({guild.id}, {user.id}, \"{riot_id}\")")
+            f"INSERT OR REPLACE INTO verified_users VALUES ({guild.id}, {user.id}, \"{riot_id}\")")
         self.db.commit()
 
         for member in bot.get_all_members():
