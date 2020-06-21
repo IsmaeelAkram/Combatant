@@ -74,7 +74,7 @@ class Config():
         await message.add_reaction("✋")
 
         self.cursor.execute(
-            f"INSERT OR INTO verification_messages VALUES ({self.guild_id}, {channel_id}, {message.id}, {creator_id})")
+            f"INSERT INTO verification_messages VALUES ({self.guild_id}, {channel_id}, {message.id}, {creator_id})")
         self.db.commit()
 
     async def verify(self, bot: commands.Bot, guild: discord.Guild, user: discord.User, riot_id: str):
