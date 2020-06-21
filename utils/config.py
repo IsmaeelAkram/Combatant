@@ -13,13 +13,13 @@ class Config():
         self.cursor = self.db.cursor()
         self.cursor.execute("""
         CREATE TABLE IF NOT EXISTS verification_messages (
-            server_id INTEGER PRIMARY KEY, channel_id INTEGER, message_id INTEGER, creator_id INTEGER
+            server_id INTEGER, channel_id INTEGER, message_id INTEGER PRIMARY KEY, creator_id INTEGER
         )
         """)
         self.cursor.execute("""
         CREATE TABLE IF NOT EXISTS verified_users (
-            server_id INTEGER PRIMARY KEY, 
-            user_id INTEGER, 
+            server_id INTEGER, 
+            user_id INTEGER PRIMARY KEY, 
             riot_id TEXT
         )
         """)
