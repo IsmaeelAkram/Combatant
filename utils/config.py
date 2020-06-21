@@ -74,7 +74,7 @@ class Config():
         await message.add_reaction("✋")
 
         self.cursor.execute(
-            f"INSERT OR REPLACE INTO verification_messages VALUES ({self.guild_id}, {channel_id}, {message.id}, {creator_id})")
+            f"INSERT OR INTO verification_messages VALUES ({self.guild_id}, {channel_id}, {message.id}, {creator_id})")
         self.db.commit()
 
     async def verify(self, bot: commands.Bot, guild: discord.Guild, user: discord.User, riot_id: str):
@@ -86,7 +86,7 @@ class Config():
             self.cursor.execute(
                 f"DELETE from verified_users WHERE user_id={user.id}")
         self.cursor.execute(
-            f"INSERT OR REPLACE INTO verified_users VALUES ({guild.id}, {user.id}, \"{riot_id}\")")
+            f"INSERT INTO verified_users VALUES ({guild.id}, {user.id}, \"{riot_id}\")")
         self.db.commit()
 
         for member in bot.get_all_members():
