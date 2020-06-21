@@ -13,7 +13,10 @@ class Config():
         self.cursor = self.db.cursor()
         self.cursor.execute("""
         CREATE TABLE IF NOT EXISTS verification_messages (
-            server_id INTEGER, channel_id INTEGER, message_id INTEGER PRIMARY KEY, creator_id INTEGER
+            server_id INTEGER, 
+            channel_id INTEGER,
+            message_id INTEGER PRIMARY KEY, 
+            creator_id INTEGER
         )
         """)
         self.cursor.execute("""
