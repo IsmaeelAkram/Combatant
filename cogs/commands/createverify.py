@@ -11,8 +11,16 @@ class CreateVerify(commands.Cog):
         self.emojis = self.vars['emojis']
         self.icons = self.vars['icons']
 
+    @commands.command(description="Force verify someone's Riot ID (skipping verification process)")
+    @commands.has_permissions(manage_roles=True)
+    async def forceverify(self, ctx: commands.Context, user: discord.User, riot_id: str):
+        await ctx.message.delete()
+        GuildConfig = config.Config(ctx.guild.id)
+        await GuildConfig.verify(self.bot, ctx.guild, user, riot_id)
+        await ctx.channel.send(embed=embed.Embed(description=f"<@{user.id}> has been forcefully linked to Riot ID `{riot_id}` by <@{ctx.author.id}>"))
+
     @commands.command(description="Create verification message")
-    @commands.has_permissions(manage_messages=True)
+    @commands.has_permissions(manage_roles=True)
     async def createverify(self, ctx: commands.Context):
         await ctx.message.delete()
         GuildConfig = config.Config(ctx.guild.id)
