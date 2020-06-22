@@ -93,7 +93,7 @@ class Config():
         self.db.commit()
 
         role = get(guild.roles, name="Valorant Linked")
-        for member in bot.get_all_members():
+        for member in guild.members:
             if(member.id == user.id):
                 try:
                     await member.add_roles(role)
