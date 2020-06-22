@@ -5,6 +5,7 @@ import chalk
 import json
 
 from cogs.commands import createverify, help, setup
+from cogs.handlers import ErrorHandler
 from cogs.verification import verification
 from cogs.matches.match import Match
 
@@ -29,6 +30,7 @@ def register_cogs():
     add_cog(verification.Verification(bot))
     add_cog(Match(bot))
     add_cog(setup.Setup(bot))
+    add_cog(ErrorHandler.ErrorHandler(bot))
     print(chalk.yellow("Loading cogs..."))
 
 
