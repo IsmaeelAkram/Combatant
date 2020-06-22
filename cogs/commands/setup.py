@@ -17,10 +17,10 @@ class Setup(commands.Cog):
     async def setup(self, ctx: commands.Context):
         await ctx.channel.send(embed=embed.Embed(description="Thanks for using Combatant! Here's the super simple setup guide!"))
 
-        if not get(guild.roles, name="Host"):
+        if not get(ctx.guild.roles, name="Host"):
             ctx.guild.create_role(name="Host")
 
-        if not get(guild.roles, name="Valorant Linked"):
+        if not get(ctx.guild.roles, name="Valorant Linked"):
             ctx.guild.create_role(name="Valorant Linked")
 
         await ctx.channel.send(embed=embed.Embed(description="The first thing you have to do is make a channel (ideally named `#link-valorant`) where people can't talk. This channel will be for the account verification message. Once you have made it, type **next**.", footer="To cancel, type **cancel**"))
