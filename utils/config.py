@@ -64,8 +64,8 @@ class Config():
 
     def is_verified(self, user: discord.User, guild: discord.Guild):
         self.cursor.execute(
-            f"SELECT * from verified_users WHERE user_id={user.id} AND server_id={guild.id}"
-        response=self.cursor.fetchone()
+            f"SELECT * from verified_users WHERE user_id={user.id} AND server_id={guild.id}")
+        response = self.cursor.fetchone()
 
         if not response:
             return False
@@ -75,14 +75,14 @@ class Config():
     async def create_verification_message(self, bot: commands.Bot, channel_id, creator_id):
         self.cursor.execute(
             f"SELECT * from verification_messages WHERE server_id={self.guild_id}")
-        response=self.cursor.fetchone()
+        response = self.cursor.fetchone()
 
         if response:
             self.cursor.execute(
                 f"DELETE from verification_messages WHERE server_id={self.guild_id}")
 
-        channel: discord.TextChannel=bot.get_channel(channel_id)
-        message=await channel.send(embed=embed.Embed(title="Verification",
+        channel: discord.TextChannel = bot.get_channel(channel_id)
+        message = await channel.send(embed=embed.Embed(title="Verification",
                                                        description="React with the ✋ emoji to start the verification process.", image=bot.user.avatar_url))
         await message.add_reaction("✋")
 
@@ -93,7 +93,7 @@ class Config():
     async def verify(self, bot: commands.Bot, guild: discord.Guild, user: discord.User, riot_id: str):
         self.cursor.execute(
             f"SELECT * from verified_users WHERE user_id={user.id}")
-        response=self.cursor.fetchone()
+        response = self.cursor.fetchone()
 
         if response:
             self.cursor.execute(
@@ -102,7 +102,7 @@ class Config():
             f"INSERT OR REPLACE INTO verified_users VALUES ({guild.id}, {user.id}, \"{riot_id}\")")
         self.db.commit()
 
-        role=get(guild.roles, name="Valorant Linked")
+        role = get(guild.roles, name="Valorant Linked")
         for member in guild.members:
             if(member.id == user.id):
                 try:
@@ -114,31 +114,31 @@ class Config():
     def get_player_riot_id(self, user: discord.User):
         self.cursor.execute(
             f"SELECT * from verified_users WHERE user_id={user.id}")
-        response=self.cursor.fetchone()
+        response = self.cursor.fetchone()
         if not response:
             return None
         else:
-            server_id, user_id, riot_id=response
+            server_id, user_id, riot_id = response
             return riot_id
 
     def check_reaction_match(self, message_id):
         self.cursor.execute(
             f"SELECT * from matches WHERE message_id={message_id}")
-        response=self.cursor.fetchone()
+        response = self.cursor.fetchone()
         if not response:
             return None
         else:
-            server_id, host_id, channel_id, message_id, match_id, description=response
+            server_id, host_id, channel_id, message_id, match_id, description = response
             return match_id
 
     def get_match_host(self, bot, match_id):
         self.cursor.execute(
             f"SELECT * from matches WHERE match_id={match_id}")
-        response=self.cursor.fetchone()
+        response = self.cursor.fetchone()
         if not response:
             return None
         else:
-            server_id, host_id, channel_id, message_id, match_id, description=response
+            server_id, host_id, channel_id, message_id, match_id, description = response
             return bot.get_user(host_id)
 
     async def add_match(self, server_id, host_id, channel_id, message_id, match_id, description):
@@ -149,14 +149,14 @@ class Config():
     async def dispatch_match(self, bot, match_id):
         self.cursor.execute(
             f"SELECT * from matches WHERE match_id={match_id}")
-        response=self.cursor.fetchone()
+        response = self.cursor.fetchone()
         self.cursor.execute(
             f"DELETE from matches WHERE match_id={match_id}")
         self.db.commit()
-        server_id, host_id, channel_id, message_id, match_id, description=response
-        message=await bot.get_channel(channel_id).fetch_message(message_id)
+        server_id, host_id, channel_id, message_id, match_id, description = response
+        message = await bot.get_channel(channel_id).fetch_message(message_id)
 
-        matchEmbed=discord.Embed(
+        matchEmbed = discord.Embed(
             color=0xe82c3f, title="Game Started", description=f"**This match has already been started. Please wait for the next one.**")
         matchEmbed.add_field(name="Description",
                              value=description, inline=False)
@@ -164,7 +164,7 @@ class Config():
         await message.edit(embed=matchEmbed)
 
     async def add_player_to_match(self, bot, guild: discord.Guild, match_id, user: discord.User):
-        host_riot_id=self.get_player_riot_id(
+        host_riot_id = self.get_player_riot_id(
             self.get_match_host(bot, match_id))
         await user.send(embed=embed.Embed(title="How to Participate",
                                           description=f"**1.** Send a friend request in Valorant to `{host_riot_id}`.\n\n**2. **Join their game and wait until the match is started.\n\nThat's it!"))
@@ -172,7 +172,7 @@ class Config():
     def check_reaction_verify(self, message_id):
         self.cursor.execute(
             f"SELECT * from verification_messages WHERE message_id={message_id}")
-        response=self.cursor.fetchone()
+        response = self.cursor.fetchone()
 
         if not response:
             return False
