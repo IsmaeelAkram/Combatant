@@ -89,7 +89,7 @@ class Config():
             self.cursor.execute(
                 f"DELETE from verified_users WHERE user_id={user.id}")
         self.cursor.execute(
-            f"INSERT INTO verified_users VALUES ({guild.id}, {user.id}, \"{riot_id}\")")
+            f"INSERT OR REPLACE INTO verified_users VALUES ({guild.id}, {user.id}, \"{riot_id}\")")
         self.db.commit()
 
         role = get(guild.roles, name="Valorant Linked")
@@ -98,7 +98,7 @@ class Config():
                 try:
                     await member.add_roles(role)
                 except:
-                    user.send(embed=embed.Embed(
+                    await user.send(embed=embed.Embed(
                         title="Oops!", description=f"I do not have permission to give you the `Valorant Linked` role in **{guild.name}**. Please contact an admin."))
 
     def get_player_riot_id(self, user: discord.User):
