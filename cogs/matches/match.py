@@ -14,6 +14,11 @@ class Match(commands.Cog):
     @commands.command(description="Start any type of Valorant match.")
     @commands.has_role("Host")
     async def startmatch(self, ctx: commands.Context, *, description: str):
+        GuildConfig = config.Config(ctx.guild.id)
+        if GuildConfig.is_verified(ctx.author, ctx.guild) is False:
+            await ctx.channel.send(embed=embed.Embed(title="Oops! Your Valorant account is not linked. Link it by reacting with :raised_hand: in the Valorant linking channel."))
+            return
+
         # if host Riot acount is not linked, stop
         match_id = int(datetime.datetime.now().strftime('%Y%m%d'))
 
@@ -36,6 +41,5 @@ class Match(commands.Cog):
                                           description="As host, you have to accept all friend requests from people who want to join. \n\n Instructions have been delivered to participants on how to join and who to add."))
 
         # Add match to database
-        GuildConfig = config.Config(ctx.guild.id)
         await GuildConfig.add_match(ctx.guild.id, host.id,
                                     ctx.channel.id, message.id, match_id, description)

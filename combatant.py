@@ -47,24 +47,28 @@ async def on_connect():
 # Reactions
 @bot.event
 async def on_raw_reaction_add(reaction: discord.RawReactionActionEvent):
-    if(bot.get_user(reaction.user_id) == bot.user):
-        return
-
     channel = bot.get_channel(reaction.channel_id)
+    user = bot.get_user(reaction.user_id)
+    guild = bot.get_guild(reaction.guild_id)
     GuildConfig = config.Config(reaction.guild_id)
 
-    if(GuildConfig.check_reaction_verify(reaction.message_id) and bot.get_user(reaction.user_id) != bot.user):
+    if(user == bot.user):
+        return
+
+    if(GuildConfig.check_reaction_verify(reaction.message_id) and user != bot.user):
         verificationProcess = verification.Verification(bot)
-        await verificationProcess.start_verification(bot.get_user(reaction.user_id), bot.get_guild(reaction.guild_id))
+        await verificationProcess.start_verification(user, guild)
 
     current_match_id = GuildConfig.check_reaction_match(reaction.message_id)
-    if(current_match_id != None and bot.get_user(reaction.user_id) != bot.user):
+    if(current_match_id != None and user != bot.user):
         if(str(reaction.emoji) == "✋"):
-            await GuildConfig.add_player_to_match(bot, bot.get_guild(
-                reaction.guild_id), current_match_id, bot.get_user(reaction.user_id))
+            if GuildConfig.is_verified(user, guild) is False:
+                await user.send(embed=embed.Embed(title="Oops!", description="You cannot join this match because your Valorant account is not linked. Link it by reacting with :raised_hand: in the Valorant linking channel."))
+                return
+            await GuildConfig.add_player_to_match(bot, guild, current_match_id, user)
         if(str(reaction.emoji) == "✅"):
-            role = get(ctx.guild.roles, name="Host")
-            if role in bot.get_user(reaction.user_id):
+            role = get(guild.roles, name="Host")
+            if role in user:
                 await GuildConfig.dispatch_match(bot, current_match_id)
 
 
