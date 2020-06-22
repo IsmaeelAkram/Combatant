@@ -1,9 +1,10 @@
 import discord
 from discord.ext import commands
+from discord.utils import get
 import chalk
 import json
 
-from cogs.commands import createverify, help
+from cogs.commands import createverify, help, setup
 from cogs.verification import verification
 from cogs.matches.match import Match
 
@@ -27,6 +28,7 @@ def register_cogs():
     add_cog(createverify.CreateVerify(bot))
     add_cog(verification.Verification(bot))
     add_cog(Match(bot))
+    add_cog(setup.Setup(bot))
     print(chalk.yellow("Loading cogs..."))
 
 
@@ -59,7 +61,9 @@ async def on_raw_reaction_add(reaction: discord.RawReactionActionEvent):
             await GuildConfig.add_player_to_match(bot, bot.get_guild(
                 reaction.guild_id), current_match_id, bot.get_user(reaction.user_id))
         if(str(reaction.emoji) == "✅"):
-            await GuildConfig.dispatch_match(bot, current_match_id)
+            role = get(ctx.guild.roles, name="Host")
+            if role in bot.get_user(reaction.user_id):
+                await GuildConfig.dispatch_match(bot, current_match_id)
 
 
 @bot.event

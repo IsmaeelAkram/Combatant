@@ -5,7 +5,7 @@ from utils import embed, config
 import json
 
 
-class CreateVerify(commands.Cog):
+class Setup(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.vars = json.load(open("./vars.json"))
