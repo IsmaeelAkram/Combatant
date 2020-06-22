@@ -30,9 +30,9 @@ class Setup(commands.Cog):
         await ctx.channel.send(embed=embed.Embed(description="The first thing you have to do is make a channel (ideally named `#link-valorant`) where people can't talk. This channel will be for the account verification message. Once you have made it, type **next**.", footer="To cancel, type cancel"))
         try:
             confirmation = await self.bot.wait_for('message', check=check, timeout=600)
-            if(confirmation == "next"):
+            if(confirmation.content == "next"):
                 pass
-            if(confirmation == "cancel"):
+            if(confirmation.content == "cancel"):
                 await ctx.channel.send(embed=embed.Embed(title="Setup cancelled."))
                 return
         except asyncio.TimeoutError:
@@ -42,9 +42,9 @@ class Setup(commands.Cog):
         await ctx.channel.send(embed=embed.Embed(description="Now make another channel (ideally named `#valorant-scrims`) where only people with the `Host` rank can talk. This channel will be to announce new scrims. Once you have made it, type **next**.", footer="To cancel, type cancel"))
         try:
             confirmation = await self.bot.wait_for('message', check=check, timeout=600)
-            if(confirmation == "next"):
+            if(confirmation.content == "next"):
                 pass
-            if(confirmation == "cancel"):
+            if(confirmation.content == "cancel"):
                 await ctx.channel.send(embed=embed.Embed(title="Setup cancelled."))
                 return
         except asyncio.TimeoutError:
@@ -54,9 +54,9 @@ class Setup(commands.Cog):
         await ctx.channel.send(embed=embed.Embed(description="The last thing you have to do is create a verification message in scrim announcements channel by typing `v!createverify` in that channel. Once you have made it, type **next**.", footer="To cancel, type cancel"))
         try:
             confirmation = await self.bot.wait_for('message', check=check, timeout=600)
-            if(confirmation == "next"):
+            if(confirmation.content == "next"):
                 pass
-            if(confirmation == "cancel"):
+            if(confirmation.content == "cancel"):
                 await ctx.channel.send(embed=embed.Embed(title="Setup cancelled."))
                 return
         except asyncio.TimeoutError:
