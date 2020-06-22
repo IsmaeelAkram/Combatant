@@ -18,6 +18,9 @@ class Setup(commands.Cog):
     async def setup(self, ctx: commands.Context):
         await ctx.channel.send(embed=embed.Embed(description="Thanks for using Combatant! Here's the super simple setup guide!"))
 
+        def check(message):
+            return message.channel.id == ctx.channel.id
+
         if not get(ctx.guild.roles, name="Host"):
             ctx.guild.create_role(name="Host")
 
