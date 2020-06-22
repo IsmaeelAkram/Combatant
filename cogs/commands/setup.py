@@ -3,6 +3,7 @@ from discord.ext import commands
 from discord.utils import get
 from utils import embed, config
 import json
+import asyncio
 
 
 class Setup(commands.Cog):
