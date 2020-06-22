@@ -12,7 +12,7 @@ class Setup(commands.Cog):
         self.emojis = self.vars['emojis']
         self.icons = self.vars['icons']
 
-    @commands.command(description="Force verify someone's Riot ID (skipping verification process)")
+    @commands.command(description="Helps you set up the bot")
     @commands.has_permissions(manage_roles=True)
     async def setup(self, ctx: commands.Context):
         await ctx.channel.send(embed=embed.Embed(description="Thanks for using Combatant! Here's the super simple setup guide!"))
