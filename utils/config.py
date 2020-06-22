@@ -95,7 +95,7 @@ class Config():
         role = get(guild.roles, name="Valorant Linked")
         for member in bot.get_all_members():
             if(member.id == user.id):
-                if(role < self.bot.top_role):
+                if(role < bot.top_role):
                     await member.add_roles()
                 else:
                     user.send(embed=embed.Embed(
