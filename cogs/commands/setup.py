@@ -27,7 +27,7 @@ class Setup(commands.Cog):
         try:
             confirmation = await self.bot.wait_for('message', check=check, timeout=600)
             if(confirmation == "next"):
-                continue
+                pass
             if(confirmation == "cancel"):
                 await ctx.channel.send(embed=embed.Embed(title="Setup cancelled."))
                 return
@@ -39,7 +39,7 @@ class Setup(commands.Cog):
         try:
             confirmation = await self.bot.wait_for('message', check=check, timeout=600)
             if(confirmation == "next"):
-                continue
+                pass
             if(confirmation == "cancel"):
                 await ctx.channel.send(embed=embed.Embed(title="Setup cancelled."))
                 return
@@ -51,7 +51,7 @@ class Setup(commands.Cog):
         try:
             confirmation = await self.bot.wait_for('message', check=check, timeout=600)
             if(confirmation == "next"):
-                continue
+                pass
             if(confirmation == "cancel"):
                 await ctx.channel.send(embed=embed.Embed(title="Setup cancelled."))
                 return
