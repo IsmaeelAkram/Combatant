@@ -95,9 +95,9 @@ class Config():
         role = get(guild.roles, name="Valorant Linked")
         for member in bot.get_all_members():
             if(member.id == user.id):
-                if(role < guild.me.top_role):
+                try:
                     await member.add_roles(role)
-                else:
+                except:
                     user.send(embed=embed.Embed(
                         title="Oops!", description=f"I do not have permission to give you the `Valorant Linked` role in **{guild.name}**. Please contact an admin."))
 
