@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from utils import embed
+from utils import embed, config
 import json
 
 
