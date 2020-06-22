@@ -68,7 +68,7 @@ async def on_raw_reaction_add(reaction: discord.RawReactionActionEvent):
             await GuildConfig.add_player_to_match(bot, guild, current_match_id, user)
         if(str(reaction.emoji) == "✅"):
             role = get(guild.roles, name="Host")
-            if role in user:
+            if role in user.roles:
                 await GuildConfig.dispatch_match(bot, current_match_id)
 
 
