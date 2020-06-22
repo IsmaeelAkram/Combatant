@@ -24,7 +24,7 @@ class Setup(commands.Cog):
         if not get(ctx.guild.roles, name="Valorant Linked"):
             ctx.guild.create_role(name="Valorant Linked")
 
-        await ctx.channel.send(embed=embed.Embed(description="The first thing you have to do is make a channel (ideally named `#link-valorant`) where people can't talk. This channel will be for the account verification message. Once you have made it, type **next**.", footer="To cancel, type **cancel**"))
+        await ctx.channel.send(embed=embed.Embed(description="The first thing you have to do is make a channel (ideally named `#link-valorant`) where people can't talk. This channel will be for the account verification message. Once you have made it, type **next**.", footer="To cancel, type cancel"))
         try:
             confirmation = await self.bot.wait_for('message', check=check, timeout=600)
             if(confirmation == "next"):
@@ -36,7 +36,7 @@ class Setup(commands.Cog):
             await user.send(embed=embed.Embed(title="You took more than 10 minutes to tell me the channel name. Begin the setup process again with `v!setup`."))
             return
 
-        await ctx.channel.send(embed=embed.Embed(description="Now make another channel (ideally named `#valorant-scrims`) where only people with the `Host` rank can talk. This channel will be to announce new scrims. Once you have made it, type **next**.", footer="To cancel, type **cancel**"))
+        await ctx.channel.send(embed=embed.Embed(description="Now make another channel (ideally named `#valorant-scrims`) where only people with the `Host` rank can talk. This channel will be to announce new scrims. Once you have made it, type **next**.", footer="To cancel, type cancel"))
         try:
             confirmation = await self.bot.wait_for('message', check=check, timeout=600)
             if(confirmation == "next"):
@@ -48,7 +48,7 @@ class Setup(commands.Cog):
             await user.send(embed=embed.Embed(title="You took more than 10 minutes to tell me the channel name. Begin the setup process again with `v!setup`."))
             return
 
-        await ctx.channel.send(embed=embed.Embed(description="The last thing you have to do is create a verification message in scrim announcements channel by typing `v!createverify` in that channel. Once you have made it, type **next**.", footer="To cancel, type **cancel**"))
+        await ctx.channel.send(embed=embed.Embed(description="The last thing you have to do is create a verification message in scrim announcements channel by typing `v!createverify` in that channel. Once you have made it, type **next**.", footer="To cancel, type cancel"))
         try:
             confirmation = await self.bot.wait_for('message', check=check, timeout=600)
             if(confirmation == "next"):
