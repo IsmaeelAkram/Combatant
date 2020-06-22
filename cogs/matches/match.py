@@ -1,9 +1,8 @@
 import discord
 from discord.ext import commands
-from utils import embed, config
+from utils import embed
 import json
-import sqlite3
-import datetime
+import asyncio
 
 
 class Match(commands.Cog):
