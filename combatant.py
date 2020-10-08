@@ -9,7 +9,7 @@ from cogs.handlers import ErrorHandler
 from cogs.verification import verification
 from cogs.matches.match import Match
 
-from utils import config
+from utils import config, embed
 
 vars = json.load(open('./vars.json'))
 bot = commands.Bot("v!")
